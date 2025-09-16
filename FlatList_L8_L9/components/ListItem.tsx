@@ -11,26 +11,28 @@ import { useState } from "react";
   to update the selected status when clicked on
 */
 
-export default function Index() {
 
-  // create a simple function telling me what was selective
-  const selectedList = (item: dataType) => {
-    console.log(item.title);
-    setSelectedId(item.id);
-  };
 
-  const [selectedId, setSelectedId] = useState<string>("1");
+const [selectedId, setSelectedId] = useState<string>("1");
+// create a simple function telling me what was selective
+const selectedList = (item: dataType) => {
+  console.log(item.title);
+  setSelectedId(item.id);
+};
+
+  
 
 type propsType = {
   item: dataType;
   isSelected: boolean;
   onPress: (item: dataType) => void;
 }
+
 const ListItem:React.FC<propsType> = ({item, isSelected, onPress}) => {
   return (<TouchableOpacity onPress = {() => selectedList(item)}>
                 <View style={[styles.flatlistRow,
                   {
-                    backgroundColor: item.id === selectedId
+                    backgroundColor: isSelected
                     ? colors.primary
                     : colors.secondary,
 
@@ -50,8 +52,12 @@ const ListItem:React.FC<propsType> = ({item, isSelected, onPress}) => {
 
               </TouchableOpacity>);
 };
-}
+
 export default ListItem;
+
+
+
+
 
 const styles = StyleSheet.create({
   list: {
